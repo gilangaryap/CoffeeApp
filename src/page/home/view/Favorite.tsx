@@ -43,7 +43,7 @@ export const Favorite = () => {
   const navigate = useNavigate();
 
   const handleBuyClick = (uuid: string) => {
-    navigate(`/product/${uuid}`);
+    navigate(`/detail-product/${uuid}`);
   };
 
   return (
