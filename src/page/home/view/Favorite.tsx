@@ -10,6 +10,7 @@ const favoriteProducts = [
     product_description:
       "High-quality wireless headphones with noise cancellation.",
     product_price: "999,000",
+    rating:"5"
   },
   {
     uuid: "2",
@@ -17,6 +18,7 @@ const favoriteProducts = [
     product_name: "Smart Watch - Model A",
     product_description: "Stay connected with notifications on your wrist.",
     product_price: "1,299,000",
+    rating:"5"
   },
   {
     uuid: "3",
@@ -24,6 +26,7 @@ const favoriteProducts = [
     product_name: "Smart Watch - Model B",
     product_description: "Track your fitness and health metrics.",
     product_price: "1,499,000",
+    rating:"5"
   },
   {
     uuid: "4",
@@ -31,6 +34,7 @@ const favoriteProducts = [
     product_name: "Smart Watch - Model C",
     product_description: "Stylish design with customizable faces.",
     product_price: "1,799,000",
+    rating:"5"
   },
   // Add more favorite products if needed
 ];

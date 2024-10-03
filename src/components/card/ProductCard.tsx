@@ -1,5 +1,6 @@
 import { ShoppingCartIcon } from "@heroicons/react/24/outline";
 import { PrimaryButton } from "../button/PrimaryButton";
+import { Rating } from '../rating/Rating';
 
 interface Product {
   uuid: string;
@@ -7,6 +8,7 @@ interface Product {
   product_name: string;
   product_description: string;
   product_price: string;
+  rating:string
 }
 
 interface ProductCardProps {
@@ -33,6 +35,7 @@ export const ProductCard = ({ product, onBuyClick, imgError,}: ProductCardProps)
         <p className="font-normal text-text text-sm mb-3 w-full max-w-xs line-clamp-2">
           {product.product_description}
         </p>
+        <Rating textColor="text" rating={Number(product.rating)}/>
         <p className="font-medium text-xl mb-3 text-primary">
           IDR. {product.product_price}
         </p>
