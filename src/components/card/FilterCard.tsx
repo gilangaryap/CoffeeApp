@@ -13,7 +13,7 @@ export const FilterCard = () => {
 
   const onApply = () => {
     dispatch(
-      productThunk({ filters: filter, currentPage: 1, productsPerPage: 6 })
+      productThunk({ filters: filter, currentPage: 1, productsPage: 6 })
     );
   };
 
