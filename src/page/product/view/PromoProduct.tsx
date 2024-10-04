@@ -90,11 +90,13 @@ export const PromoProduct = () => {
         <h1 className="text-heading_mobile lg:text-heading_desktop text-black text-plus-jakarta ml-0">
           Today's <span className="text-[#8E6447]">Promos</span>
         </h1>
-        <PagePaginationArrows
-          currentPage={currentPage}
-          onPageChange={handlePageChange}
-          pages={totalPages}
-        />
+        <div className="hidden md:block">
+          <PagePaginationArrows
+            currentPage={currentPage}
+            onPageChange={handlePageChange}
+            pages={totalPages}
+          />
+        </div>
       </div>
       <div
         style={{ overflowY: "hidden", scrollbarWidth: "none" }}
