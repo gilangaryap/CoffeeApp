@@ -1,9 +1,18 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { persistStore } from "redux-persist";
+import { PersistConfig, persistStore } from "redux-persist";
+import { filterReducer, productState } from "./slice/filterProductSlice";
+import storage from "redux-persist/lib/storage";
+import persistReducer from "redux-persist/es/persistReducer";
 
+const productPersistConfig: PersistConfig<productState> = {
+  key: "product:coffee",
+  storage,
+  whitelist: [ "id" , "uuid" ],
+};
+const persistedProductReducer = persistReducer(productPersistConfig, filterReducer);
 export const store = configureStore({
     reducer:{
-
+      filterProduct: persistedProductReducer,
     },
   middleware:(getDefaultMiddleware) => getDefaultMiddleware({
     serializeableCheck: false,

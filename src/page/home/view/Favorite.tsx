@@ -1,47 +1,10 @@
 import { ProductCard } from "../../../components/card/ProductCard";
-import img from "../../../assets/images/8d0f31b42b08e11e97f7bc8c06c07705.jpeg";
 import { useNavigate } from "react-router-dom";
-
-const favoriteProducts = [
-  {
-    uuid: "1",
-    img_product: img, // Changed to be just the image string
-    product_name: "Wireless Headphones",
-    product_description:
-      "High-quality wireless headphones with noise cancellation.",
-    product_price: "999,000",
-    rating:"5"
-  },
-  {
-    uuid: "2",
-    img_product: img, // Changed to be just the image string
-    product_name: "Smart Watch - Model A",
-    product_description: "Stay connected with notifications on your wrist.",
-    product_price: "1,299,000",
-    rating:"5"
-  },
-  {
-    uuid: "3",
-    img_product: img, // Changed to be just the image string
-    product_name: "Smart Watch - Model B",
-    product_description: "Track your fitness and health metrics.",
-    product_price: "1,499,000",
-    rating:"5"
-  },
-  {
-    uuid: "4",
-    img_product: img, // Changed to be just the image string
-    product_name: "Smart Watch - Model C",
-    product_description: "Stylish design with customizable faces.",
-    product_price: "1,799,000",
-    rating:"5"
-  },
-  // Add more favorite products if needed
-];
+import { productDummy } from "../../../redux/api/product";
 
 export const Favorite = () => {
   const navigate = useNavigate();
-
+  const favoriteProducts = productDummy;
   const handleBuyClick = (uuid: string) => {
     navigate(`/detail-product/${uuid}`);
   };
@@ -60,8 +23,8 @@ export const Favorite = () => {
           yours too!
         </p>
       </div>
-      <div className="slide-content grid justify-items-center items-center grid-cols-[1fr,1fr,1fr,1fr] gap-9 h-fit bg-white overflow-x-scroll snap-mandatory snap-x lg:overflow-x-auto lg:snap-none lg:grid-cols-4">
-        {favoriteProducts.map((product) => (
+      <div style={{ overflowY: "hidden", scrollbarWidth: "none" }} className="slide-content grid justify-items-center items-center grid-cols-[1fr,1fr,1fr,1fr] gap-9 h-fit bg-white overflow-x-scroll snap-mandatory snap-x lg:overflow-x-auto lg:snap-none lg:grid-cols-4">
+        {favoriteProducts.slice(0, 4).map((product) => (
           <ProductCard
             product={product}
             key={product.uuid}
