@@ -1,9 +1,9 @@
 import { ChangeEvent } from "react";
 import { useStoreDispatch, useStoreSelector } from "../../redux/hook";
 import { filterActions } from "../../redux/slice/filterProductSlice";
-import { SortInput } from "../Input/SortInput";
-import { CategoryInput } from "../Input/CategoryInput";
-import { SearchInput } from "../Input/SearchInput";
+import { SortInput } from "../input/SortInput";
+import { CategoryInput } from "../input/CategoryInput";
+import { SearchInput } from "../input/SearchInput";
 import { IFilters } from "../../redux/types/product";
 
 export const FilterCard = () => {

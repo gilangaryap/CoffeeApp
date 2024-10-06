@@ -1,5 +1,9 @@
+import { DetailProduct } from "./view/DetailProduct"
+
 export const ProductDetail = () => {
   return (
-    <div>ProductDetail</div>
+    <div>
+      <DetailProduct/>
+    </div>
   )
 }
