@@ -1,9 +1,9 @@
-import { DetailProduct } from "./view/DetailProduct"
+import { DetailProduct } from "./view/DetailProduct";
 
 export const ProductDetail = () => {
   return (
     <div>
-      <DetailProduct/>
+      <DetailProduct />
     </div>
-  )
-}
+  );
+};

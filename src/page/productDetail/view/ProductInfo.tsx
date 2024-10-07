@@ -8,7 +8,7 @@ interface ProductInfoProps {
 
 export const ProductInfo = ({ product_name,product_price,discount_price,product_description, rating}: ProductInfoProps) => {
   return (
-    <div className="py-5 pr-10 pl-10 md:pr-14 md:pl-14 lg:pl-5 lg:pr-20 gap-3 flex flex-col justify-center">
+    <div className="gap-3 flex flex-col justify-center">
       <h2 className="text-lg font-bold text-white p-3 bg-[#D00000] w-fit rounded-3xl">
         FLASH SALE!
       </h2>
