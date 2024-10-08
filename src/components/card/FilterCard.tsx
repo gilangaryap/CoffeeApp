@@ -9,11 +9,21 @@ import { SortInput } from "../Input/SortInput";
 export const FilterCard = () => {
   const dispatch = useStoreDispatch();
   const { filter } = useStoreSelector((state) => state.filterProduct);
-  const { productThunk, setFilter ,resetFilter } = filterActions;
+  const { productThunk, setFilter, resetFilter } = filterActions;
 
   const onApply = () => {
+    const defaultFilter: IFilters = {
+      category: "",
+      sortBy: "",
+      max_price: "",
+      min_price: "",
+      searchText: "",
+    };
+
+    const appliedFilters = filter || defaultFilter; 
+
     dispatch(
-      productThunk({ filters: filter, currentPage: 1, productsPage: 6 })
+      productThunk({ filters: appliedFilters, currentPage: 1, productsPage: 6 })
     );
   };
 
@@ -43,7 +53,12 @@ export const FilterCard = () => {
     }
   };
 
-  const categories = [ "specialty coffees", "gourmet snacks", "sweet indulgences", "unique beverages"];
+  const categories = [
+    "specialty coffees",
+    "gourmet snacks",
+    "sweet indulgences",
+    "unique beverages",
+  ];
   const sortOptions = ["cheap", "priciest", "a-z", "z-a"];
   return (
     <div className="hidden lg:block w-full">
@@ -56,7 +71,10 @@ export const FilterCard = () => {
           </button>
         </section>
 
-        <SearchInput value={filter.searchText} onChange={handleSearchChange} />
+        <SearchInput
+          value={filter?.searchText || ""}
+          onChange={handleSearchChange}
+        />
 
         <section className="category text-white grid gap-4">
           <p className="text-xl text-white">Category</p>
@@ -65,7 +83,7 @@ export const FilterCard = () => {
               <CategoryInput
                 key={category}
                 category={category}
-                selectedCategory={filter.category || ""}
+                selectedCategory={filter?.category || ""}
                 onChange={handleCategoryChange}
               />
             ))}
@@ -77,7 +95,7 @@ export const FilterCard = () => {
               <SortInput
                 key={sortBy}
                 sortBy={sortBy}
-                selectedSort={filter.sortBy || ""}
+                selectedSort={filter?.sortBy || ""}
                 onChange={handleSortChange}
               />
             ))}
