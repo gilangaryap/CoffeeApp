@@ -14,7 +14,6 @@ export interface IProductBody {
       img_1?: string;
       img_2?: string;
       img_3?: string;
-      img_4?: string;
     };
     product: {
       uuid?: string;
@@ -23,6 +22,7 @@ export interface IProductBody {
       product_price: number;
       discount_price: number;
       product_description?: string;
+      rating: string;
     }
   
   }

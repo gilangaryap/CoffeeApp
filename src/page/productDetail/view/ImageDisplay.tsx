@@ -11,12 +11,15 @@ export const ImageDisplay = ({
 }: ImageDisplayProps) => {
   return (
     <div className="w-full h-[300px] bg-black">
-      <img
-        className="h-[300px] md:h-full w-full object-cover"
-        src={currentImage}
-        alt="Product"
-      />
-      <div className="grid grid-cols-3 gap-3">
+      <div className="overflow-hidden relative h-[300px] md:h-full">
+        <img
+          className="transition-transform duration-300 ease-in-out transform hover:scale-110 h-full w-full object-cover"
+          src={currentImage}
+          alt="Product"
+        />
+      </div>
+
+      <div className="grid pt-5 grid-cols-3 gap-3">
         {images.map((img, index) => (
           <div key={index} className="h-[80px] lg:h-[162px]">
             <img
