@@ -9,6 +9,10 @@ import { QuantityInput } from "../../../components/Input/QuantityInput";
 import { IceHotInput } from "../../../components/Input/IceHotInput";
 import { SizeInput } from "../../../components/Input/SizeInput";
 import { MessageModal } from "../../../components/alert/MessageModal";
+import { ShoppingCartIcon } from "@heroicons/react/24/outline";
+import { useNavigate } from "react-router-dom";
+import { checkoutAction } from "../../../redux/slice/checkoutSlice";
+import { ITransactionProduct } from "../../../redux/types/product";
 
 const images = ["url_to_image1.jpg", "url_to_image2.jpg", "url_to_image3.jpg"];
 
@@ -21,6 +25,8 @@ export const DetailProduct = () => {
     header: string;
     body: string;
   } | null>(null);
+
+  const navigate = useNavigate();
 
   const product = productDummy;
 
@@ -44,7 +50,7 @@ export const DetailProduct = () => {
     dispatch(selectProductActions.setOption(option));
   };
 
-  const handleBuyClick = () => {
+  const handleBasketClick = () => {
     console.log("Selected Size:", selectedSize);
     console.log("Selected Option:", selectedOption);
     if (selectedSize === undefined || selectedOption === undefined) {
@@ -64,6 +70,21 @@ export const DetailProduct = () => {
 
   const closeMessage = () => {
     setMessage(null);
+  };
+
+  const handleBuy = () => {
+    if (selectedSize !== undefined && selectedOption !== undefined) {
+      const defaultProduct: ITransactionProduct = {
+        product_id: product[0].uuid,
+        count,
+        size_id: selectedSize,
+        ice_hot: selectedOption,
+        delivery_id: undefined,
+        payment_id: undefined,
+      };
+      dispatch(checkoutAction.checkoutProduct(defaultProduct));
+      navigate("/checkout");
+    }
   };
 
   return (
@@ -96,15 +117,23 @@ export const DetailProduct = () => {
           selectedOption={selectedOption}
           onOptionChange={handleOptionChange}
         />
-        <div>
+        <div className="grid grid-cols-2 gap-3">
           <PrimaryButton
-            onClick={handleBuyClick}
+            onClick={handleBuy}
             text="Buy"
             style="w-full"
             disabled={
               selectedSize === undefined || selectedOption === undefined
             }
           />
+          <button
+            onClick={handleBasketClick}
+            className="rounded-xl py-2 border-2 w-full border-primary bg-transparent text-sm flex justify-center items-center gap-3 text-primary">
+            <div className="w-6 h-auto">
+              <ShoppingCartIcon />
+            </div>
+            Add to chart
+          </button>
         </div>
       </div>
     </div>

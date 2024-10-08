@@ -4,6 +4,7 @@ import { filterReducer, productState } from "./slice/filterProductSlice";
 import storage from "redux-persist/lib/storage";
 import persistReducer from "redux-persist/es/persistReducer";
 import { selectProductReducer } from "./slice/selectProduct";
+import { checkoutReducer } from "./slice/checkoutSlice";
 
 const productPersistConfig: PersistConfig<productState> = {
   key: "product:coffee",
@@ -15,6 +16,7 @@ export const store = configureStore({
     reducer:{
       filterProduct: persistedProductReducer,
       selectProduct: selectProductReducer,
+      checkout: checkoutReducer,
     },
   middleware:(getDefaultMiddleware) => getDefaultMiddleware({
     serializeableCheck: false,

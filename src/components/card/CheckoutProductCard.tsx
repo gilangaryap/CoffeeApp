@@ -1,10 +1,12 @@
 import { XMarkIcon } from "@heroicons/react/16/solid";
 
 interface IProduct {
-  product_id: string;
+  uuid?: string;
   count: number;
-  size_id: number;
+  size_id?: number;
   ice_hot: number;
+  delivery_id?: string;
+  payment_id?: string;
 }
 
 interface ICheckoutProductCard {
@@ -13,8 +15,8 @@ interface ICheckoutProductCard {
   deliveryOption: string;
   productName: string;
   productImage: string;
-  productPrice: number;
-  discountPrice?: number;
+  productPrice: string;
+  discountPrice?: string;
 }
 
 export default function CheckoutProductCard({
@@ -40,8 +42,7 @@ export default function CheckoutProductCard({
   };
 
   return (
-    <div
-      key={product.product_id}
+    <div key={product.uuid}
       className="grid grid-cols-1 grid-rows-2 md:grid-rows-1 md:grid-cols-[auto,1fr] items-center gap-3 p-3 border border-neutral-300">
       <div className="w-auto h-auto grid justify-center items-center">
         <img
