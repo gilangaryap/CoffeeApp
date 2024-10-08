@@ -5,7 +5,7 @@ import axios, { AxiosResponse } from "axios";
 import { IProductResponse } from "../types/response";
 
 export interface IProductState {
-  filter: IFilters;
+  filter?: IFilters;
   uuid: string;
   product: IProductBody[];
   orderTotal: number;
@@ -17,8 +17,8 @@ const initialState: IProductState = {
   filter: {
     category: "",
     sortBy: "",
-    max_price: '',
-    min_price: '',
+    max_price: "",
+    min_price: "",
     searchText: "",
   },
   uuid: "",
@@ -79,7 +79,7 @@ const filterSlice = createSlice({
     },
     updateFilter: (state, { payload }: PayloadAction<Partial<IFilters>>) => {
       state.filter = { ...state.filter, ...payload };
-    },
+    },    
     setProducts: (state, { payload }: PayloadAction<IProductBody[]>) => {
       state.product = payload;
     },

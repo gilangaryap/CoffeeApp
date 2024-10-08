@@ -39,9 +39,9 @@ export interface IProductBody {
   export interface IFilters {
     category?: string;
     sortBy?: string 
-    searchText: string;
-    min_price: string;
-    max_price: string;
+    searchText?: string;
+    min_price?: string;
+    max_price?: string;
   }
   
   export interface IProductBody {

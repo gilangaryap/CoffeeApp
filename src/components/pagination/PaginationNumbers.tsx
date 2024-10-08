@@ -34,7 +34,7 @@ export default function PaginationNumbers({
   }
 
   return (
-    <div className="flex justify-center mt-4 gap-4">
+    <div className="flex justify-center gap-4">
       {currentPage > 1 && (
         <button
           onClick={() => onPageChange(currentPage - 1)}
