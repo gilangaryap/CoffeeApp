@@ -10,7 +10,7 @@ const initialState: IProductState = {
 };
 
 const checkoutSlice = createSlice({
-  name: "profile",
+  name: "checkoutSlice",
   initialState,
   reducers: {
     checkoutProduct: (state, action: PayloadAction<ITransactionProduct>) => {
