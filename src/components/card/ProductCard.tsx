@@ -44,7 +44,7 @@ export const ProductCard = ({ product, onBuyClick, imgError,}: ProductCardProps)
           <PrimaryButton
             onClick={() => onBuyClick(product.uuid)}
             text="Buy"
-            style="w-full"
+            style="w-full text-sm"
           />
 
           <button onClick={() => onBuyClick(product.uuid)} className="py-1 px-3 rounded-md border border-primary bg-transparent text-primary items-center justify-center">

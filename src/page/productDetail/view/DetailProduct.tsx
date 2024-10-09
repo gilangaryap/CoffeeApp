@@ -71,7 +71,7 @@ export const DetailProduct = () => {
   const handleBuy = () => {
     if (selectedSize !== undefined && selectedOption !== undefined) {
       const defaultProduct: ITransactionProduct = {
-        product_id: productDetail.product.uuid,
+        uuid: productDetail.product.uuid,
         count,
         size_id: selectedSize,
         ice_hot: selectedOption,
@@ -133,7 +133,7 @@ export const DetailProduct = () => {
           <PrimaryButton
             onClick={handleBuy}
             text="Buy"
-            style="w-full"
+            style="w-full text-sm"
             disabled={
               selectedSize === undefined || selectedOption === undefined
             }

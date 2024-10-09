@@ -19,7 +19,7 @@ export const GetStarted = () => {
           love just for you. Start your day with us for a bigger smile!
         </p>
         <div>
-          <PrimaryButton text="Get Started" onClick={handleClick} style="px-6" />
+          <PrimaryButton text="Get Started" onClick={handleClick} style="px-6 text-sm" />
         </div>
         <div className="flex gap-4 pb-4">
           <div className="gap-3 border-r border-gray-400 pr-3">

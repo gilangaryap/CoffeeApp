@@ -37,8 +37,7 @@ export default function CheckoutProductCard({ product, productIndex, deliveryOpt
   };
 
   return (
-    <div key={product.uuid}
-      className="grid grid-cols-1 grid-rows-2 md:grid-rows-1 md:grid-cols-[auto,1fr] items-center gap-3 p-3">
+    <div key={product.uuid} className="grid grid-cols-1 grid-rows-2 md:grid-rows-1 md:grid-cols-[auto,1fr] items-center gap-3 p-3 ">
       <div className="w-auto h-auto grid justify-center items-center">
         <img
           className="w-[178px] h-[170px] object-cover"
