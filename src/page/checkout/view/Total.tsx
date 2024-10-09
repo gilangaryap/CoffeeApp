@@ -22,34 +22,33 @@ export const Total = ({order,delivery,tax,sub_Total}: totalProps) => {
         
       <p className="text-2xl font-medium">Total</p>
 
-      <div className="w-full bg-gray-100">
+      <div className="w-full border border-text rounded-xl border-opacity-10">
         <div className="flex-col flex gap-4 p-4">
           <div className="flex-row flex justify-between">
             <div className="font-bold text-xl mb-2 text-text">Order</div>
-            <div className="font-bold text-xl mb-2 text-black">IDR {order}</div>
+            <div className="font-bold text-xl mb-2 text-black">Rp {order}</div>
           </div>
 
           <div className="flex-row flex justify-between">
             <div className="font-bold text-xl mb-2 text-text">Delivery</div>
-            <div className="font-bold text-xl mb-2 text-black">IDR {delivery}</div>
+            <div className="font-bold text-xl mb-2 text-black">Rp {delivery}</div>
           </div>
 
           <div className="flex-row flex justify-between">
             <div className="font-bold text-xl mb-2 text-text">Tax</div>
-            <div className="font-bold text-xl mb-2 text-black">IDR {tax}</div>
+            <div className="font-bold text-xl mb-2 text-black">Rp {tax}</div>
           </div>
 
           <div className="flex-row flex justify-between">
             <div className="font-bold text-xl mb-2 text-text">Sub Total</div>
-            <div className="font-bold text-xl mb-2 text-black">IDR {sub_Total}</div>
+            <div className="font-bold text-xl mb-2 text-black">Rp {sub_Total}</div>
           </div>
 
           
           <PrimaryButton onClick={handleOpenModal} text="Checkout" style="w-full font-bold "/>
 
-          <div className="text-xl text-gray-400">We accept</div>
           <p className="text-xl text-gray-400">
-            *Get Discount if you pay with Bank Central Asia
+            *Click Checkout to continue payment
           </p>
 
           <CheckoutModal
