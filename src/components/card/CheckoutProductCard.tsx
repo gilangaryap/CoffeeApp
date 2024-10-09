@@ -1,4 +1,6 @@
 import { XMarkIcon } from "@heroicons/react/16/solid";
+import { checkoutAction } from "../../redux/slice/checkoutSlice";
+import { useStoreDispatch } from "../../redux/hook";
 
 interface IProduct {
   uuid?: string;
@@ -19,15 +21,8 @@ interface ICheckoutProductCard {
   discountPrice?: string;
 }
 
-export default function CheckoutProductCard({
-  product,
-  productIndex,
-  deliveryOption,
-  productName,
-  productImage,
-  productPrice,
-  discountPrice,
-}: ICheckoutProductCard) {
+export default function CheckoutProductCard({ product, productIndex, deliveryOption, productName, productImage, productPrice, discountPrice}: ICheckoutProductCard) {
+  const dispatch = useStoreDispatch();
   const renderDeliveryOption = () => {
     switch (deliveryOption) {
       case "Dine in":
@@ -43,7 +38,7 @@ export default function CheckoutProductCard({
 
   return (
     <div key={product.uuid}
-      className="grid grid-cols-1 grid-rows-2 md:grid-rows-1 md:grid-cols-[auto,1fr] items-center gap-3 p-3 border border-neutral-300">
+      className="grid grid-cols-1 grid-rows-2 md:grid-rows-1 md:grid-cols-[auto,1fr] items-center gap-3 p-3">
       <div className="w-auto h-auto grid justify-center items-center">
         <img
           className="w-[178px] h-[170px] object-cover"
@@ -88,11 +83,9 @@ export default function CheckoutProductCard({
 
         <div className="flex items-center justify-end">
           <button
-            onClick={() =>
-              console.log(`Remove product at index ${productIndex}`)
-            }
-            className="border-2 border-black rounded-full flex items-center justify-center">
-            <div className="w-6 h-6">
+            onClick={() => dispatch(checkoutAction.removeProduct(productIndex))}
+            className="border-2 border-red-500 rounded-full flex items-center justify-center">
+            <div className="w-6 h-6 text-red-500">
               <XMarkIcon />
             </div>
           </button>
