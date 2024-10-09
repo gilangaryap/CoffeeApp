@@ -32,7 +32,7 @@ export const CheckoutModal = ({
         </p>
         <div className="flex justify-center gap-5">
           <PrimaryButton style="px-6 text-sm" onClick={onConfirm} text="Checkout" />
-          <TextButton style="bg-gray-500 px-6 rounded-lg" onClick={onClose} text="Cancel" />
+          <TextButton border="border" style="border-text px-6 rounded-lg" onClick={onClose} text="Cancel" />
         </div>
       </div>
     </div>
