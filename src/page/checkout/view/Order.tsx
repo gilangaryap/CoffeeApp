@@ -13,7 +13,7 @@ export const Order = () => {
   const handleClick = () => {
     navigate("/product");
   };
-
+  
   return (
     <div className=" grid gap-10">
       <div className="pt-10 lg:pt-16">
