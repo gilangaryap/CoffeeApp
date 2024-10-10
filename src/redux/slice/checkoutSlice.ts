@@ -17,7 +17,7 @@ const checkoutSlice = createSlice({
       const newCheckout = [...state.checkout];
       const index = newCheckout.findIndex(
         (product) =>
-          product.product_id === action.payload.product_id &&
+          product.uuid === action.payload.uuid &&
           product.size_id === action.payload.size_id &&
           product.ice_hot === action.payload.ice_hot
       );
