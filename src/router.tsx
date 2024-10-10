@@ -4,6 +4,7 @@ import { Home } from "./page/home/Page";
 import { Product } from "./page/product/Page";
 import { ProductDetail } from "./page/productDetail/Page";
 import { CheckoutProduct } from "./page/checkout/Page";
+import { HistoryOrder } from "./page/HistoryOrder/page";
 
 export const router = createBrowserRouter([
   {
@@ -26,6 +27,10 @@ export const router = createBrowserRouter([
       {
         path:"checkout",
         element: <CheckoutProduct/>
+      },
+      {
+        path:"history-order",
+        element:<HistoryOrder/>
       }
     ],
   },
