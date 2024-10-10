@@ -28,7 +28,7 @@ export interface IProductBody {
   }
   
   export interface ITransactionProduct {
-    product_id?: string;
+    uuid?: string;
     count: number;
     size_id?: number;
     ice_hot: number;
