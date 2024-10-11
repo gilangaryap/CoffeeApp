@@ -7,7 +7,7 @@ interface OrderListProps {
 
 export const OrderItemCard = ({product}: OrderListProps) => {
   return (
-    <div className="grid grid-cols-[1fr,1fr] md:grid-cols-[auto,1fr,1fr,1fr,1fr] gap-5 p-3 items-start border">
+    <div className="grid w-full grid-cols-[1fr,1fr] md:grid-cols-[auto,1fr,1fr,1fr,1fr] gap-5 p-3 items-start border">
       <div className="w-full h-full grid items-center">
         <img
           className="w-full h-full md:w-[100px] md:h-[100px]"
