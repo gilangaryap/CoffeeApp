@@ -1,3 +1,4 @@
+import { IHistoryOrderBody } from "./historyOrder";
 import { IDetailProduct, IProductBody } from "./product";
 
 interface IPaginationMeta {
@@ -37,6 +38,7 @@ export interface IRegisterResponse extends IBasicResponse {
 export interface ITestimonialResponse extends IBasicResponse {
   data: ITestimonialBody[];
 }
+  */
 
 export interface IHistoryResponse extends IBasicResponse {
   data: IHistoryOrderBody[];
@@ -44,7 +46,7 @@ export interface IHistoryResponse extends IBasicResponse {
   nextLink: string | null;
   currentPage: number;
   totalPages: number;
-} */
+} 
 
 export interface IProductDetailResponse extends IBasicResponse {
   data: IDetailProduct;

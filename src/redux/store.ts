@@ -6,6 +6,7 @@ import persistReducer from "redux-persist/es/persistReducer";
 import { selectProductReducer } from "./slice/selectProduct";
 import { checkoutReducer } from "./slice/checkoutSlice";
 import { productDetailReducer } from "./slice/productDetailSlice";
+import { historyOrderReducer } from "./slice/historyOrderSlice";
 
 const productPersistConfig: PersistConfig<productState> = {
   key: "product:coffee",
@@ -19,6 +20,7 @@ export const store = configureStore({
       selectProduct: selectProductReducer,
       checkout: checkoutReducer,
       detailProduct: productDetailReducer,
+      historyOrder: historyOrderReducer,
     },
   middleware:(getDefaultMiddleware) => getDefaultMiddleware({
     serializeableCheck: false,
