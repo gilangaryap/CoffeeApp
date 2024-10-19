@@ -2,17 +2,14 @@ import { OrderFilter } from "./OrderFilter";
 import { OrderItemCard } from "../../../components/card/OrderItemCard";
 import PaginationNumbers from "../../../components/pagination/PaginationNumbers";
 import { useOrderHistory } from "./useOrderHistory";
+import { useEffect } from "react";
 
 export const OrderList = () => {
-  const {
-    history,
-    isLoading,
-    pagination,
-    currentPage,
-    activeStatus,
-    fetchOrderHistory,
-    setCurrentPage,
-  } = useOrderHistory();
+  const { history, isLoading, pagination, currentPage, activeStatus, fetchOrderHistory, setCurrentPage,} = useOrderHistory();
+
+  useEffect(() => {
+    fetchOrderHistory(activeStatus);
+  }, [currentPage, activeStatus, fetchOrderHistory]);
 
   return (
     <div>
