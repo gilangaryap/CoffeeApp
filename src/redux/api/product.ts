@@ -173,7 +173,6 @@ export const productDetailThunk = createAsyncThunk<
     const result: AxiosResponse<IProductDetailResponse> = await axios.get(url);
 
     if (Array.isArray(result.data.data)) {
-      console.log(result.data.data)
       return result.data.data; 
     } else {
       return rejectWithValue({

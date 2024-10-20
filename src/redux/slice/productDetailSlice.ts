@@ -31,7 +31,6 @@ const producDetailtSlice = createSlice({
       .addCase(productDetailThunk.fulfilled, (state, action) => {
         state.isLoading = false;
         state.productDetail = action.payload; 
-        console.log("Product details loaded successfully:", action.payload);
       });
   },
 });
