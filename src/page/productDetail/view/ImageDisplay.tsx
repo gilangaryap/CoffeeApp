@@ -4,11 +4,7 @@ interface ImageDisplayProps {
   onImageClick: (img: string) => void;
 }
 
-export const ImageDisplay = ({
-  currentImage,
-  images,
-  onImageClick,
-}: ImageDisplayProps) => {
+export const ImageDisplay = ({ currentImage, images, onImageClick,}: ImageDisplayProps) => {
   return (
     <div className="w-full h-[300px] bg-black">
       <div className="overflow-hidden relative h-[300px] md:h-full">

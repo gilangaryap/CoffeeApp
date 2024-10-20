@@ -18,10 +18,7 @@ export default function PaginationNumbers({ currentPage, totalPages, onPageChang
       {pageNumber}
     </button>
   );
-
-  console.log("Current Page:", currentPage);
-
-
+  
   const pageNumbers: JSX.Element[] = [];
   const startPage = Math.max(1, currentPage - 1);
   const endPage = Math.min(totalPages, startPage + 3);

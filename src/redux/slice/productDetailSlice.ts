@@ -1,62 +1,22 @@
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IDetailProduct } from "../types/product";
-import { IProductDetailResponse } from "../types/response";
-import axios, { AxiosError, AxiosResponse } from "axios";
+import { productDetailThunk } from "../api/product";
 
 export interface IProductState {
   isLoading: boolean;
-  productDetail: IDetailProduct;
+  productDetail: IDetailProduct[];
 }
 
 const initialState: IProductState = {
   isLoading: false,
-  productDetail: {
-    imgProduct: {
-      img_1: "",
-      img_2: "",
-      img_3: "",
-    },
-    product: {
-      uuid: "",
-      count: 0,
-      product_name: "",
-      product_price: 0,
-      discount_price: 0,
-      product_description: "",
-      rating:''
-    },
-  },
+  productDetail: [],
 };
 
-const productDetailThunk = createAsyncThunk<
-  IDetailProduct,
-  { uuid: string},
-  { rejectValue: { error: Error; status?: number } }
->(
-  "productThunk",
-  async (params: { uuid: string }, { rejectWithValue }) => {
-    try {
-      const url = `${import.meta.env.VITE_REACT_APP_API_URL}/product/detail/${params.uuid}`;
-      const result: AxiosResponse<IProductDetailResponse> = await axios(url, {
-        method: "GET",
-      });
-      return result.data.data;
-    } catch (error) {
-      if (error instanceof AxiosError)
-        return rejectWithValue({
-          error: error.response?.data,
-          status: error.status,
-        });
-      throw error;
-    }
-  }
-);
-
-const productDetailSlice = createSlice({
+const producDetailtSlice = createSlice({
   name: "productSlice",
   initialState,
   reducers: {
-    setProductDetail: (state, action: PayloadAction<IDetailProduct>) => {
+    setProductDetail: (state, action: PayloadAction<IDetailProduct[]>) => {
       state.productDetail = action.payload;
     },
   },
@@ -70,14 +30,17 @@ const productDetailSlice = createSlice({
       })
       .addCase(productDetailThunk.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.productDetail = action.payload;
+        state.productDetail = action.payload; 
+        console.log("Product details loaded successfully:", action.payload);
       });
   },
 });
 
-export const productDetailAction = {
-  ...productDetailSlice.actions,
+export const producDetailtAction = {
+  ...producDetailtSlice.actions,
   productDetailThunk,
 };
-export type productDetailState = ReturnType<typeof productDetailSlice.reducer>;
-export const productDetailReducer = productDetailSlice.reducer;
+
+export type productDetailState = ReturnType<typeof producDetailtSlice.reducer>;
+export const productDetailReducer = producDetailtSlice.reducer;
+
