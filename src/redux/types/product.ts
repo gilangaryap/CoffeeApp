@@ -14,27 +14,35 @@ interface IProduct {
   count: number;
   product_name?: string;
   product_price: number;
-  discount_price: number;
+  discount_price: string;
   product_description?: string;
   rating: string;
 }
 
-interface IImage{
-    img_1?: string;
-    img_2?: string;
-    img_3?: string;
+interface IImage {
+  img_1?: string;
+  img_2?: string;
+  img_3?: string;
 }
 
 export interface IDetailProduct {
-  product: IProduct,
-  images:IImage
+  product: IProduct;
+  images: IImage;
+}
+
+export interface IDetailCardProduct {
+  img_product: string;
+  product_name: string;
+  product_price: number;
+  discount_price: string;
+  uuid:string;
 }
 
 export interface ITransactionProduct {
   uuid?: string;
   count: number;
   size_id?: number;
-  ice_hot: number;
+  ice_hot?: number;
   delivery_id?: string;
   payment_id?: string;
 }

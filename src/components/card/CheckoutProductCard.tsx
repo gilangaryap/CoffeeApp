@@ -1,23 +1,15 @@
 import { XMarkIcon } from "@heroicons/react/16/solid";
 import { checkoutAction } from "../../redux/slice/checkoutSlice";
 import { useStoreDispatch } from "../../redux/hook";
-
-interface IProduct {
-  uuid?: string;
-  count: number;
-  size_id?: number;
-  ice_hot: number;
-  delivery_id?: string;
-  payment_id?: string;
-}
+import { ITransactionProduct } from "../../redux/types/product";
 
 interface ICheckoutProductCard {
-  product: IProduct;
+  product: ITransactionProduct;
   productIndex: number;
   deliveryOption: string;
   productName: string;
   productImage: string;
-  productPrice: string;
+  productPrice: number;
   discountPrice?: string;
 }
 
@@ -37,7 +29,7 @@ export default function CheckoutProductCard({ product, productIndex, deliveryOpt
   };
 
   return (
-    <div key={product.uuid} className="grid grid-cols-1 grid-rows-2 md:grid-rows-1 md:grid-cols-[auto,1fr] items-center gap-3 p-3 ">
+    <div className="grid grid-cols-1 grid-rows-2 md:grid-rows-1 md:grid-cols-[auto,1fr] items-center gap-3 p-3 ">
       <div className="w-auto h-auto grid justify-center items-center">
         <img
           className="w-[178px] h-[170px] object-cover"

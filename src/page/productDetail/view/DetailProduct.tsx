@@ -5,8 +5,8 @@ import { IceHotInput } from "../../../components/Input/IceHotInput";
 import { QuantityInput } from "../../../components/Input/QuantityInput";
 import { SizeInput } from "../../../components/Input/SizeInput";
 import { ImageDisplay } from "./ImageDisplay";
-import { useProductDetail } from "./ProductHandlers";
 import { ProductInfo } from "./ProductInfo";
+import { useProductDetail } from "./ProductHandlers";
 
 export const DetailProduct = () => {
   const {
@@ -39,7 +39,7 @@ export const DetailProduct = () => {
         <ProductInfo
           product_name={productDetail.length > 0 ? productDetail[0].product.product_name || "" : ""}
           product_price={productDetail.length > 0 ? productDetail[0].product.product_price || 0 : 0}
-          discount_price={productDetail.length > 0 ? productDetail[0].product.discount_price || 0 : 0}
+          discount_price={productDetail.length > 0 ? productDetail[0].product.discount_price || 'No Discount' : 'No Discount'}
           product_description={productDetail.length > 0 ? productDetail[0].product.product_description || "" : ""}
           rating={productDetail.length > 0 ? productDetail[0].product.rating || '' : ''}
         />

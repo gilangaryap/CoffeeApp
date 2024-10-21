@@ -1,12 +1,17 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { ITransactionProduct } from "../types/product";
+import { IDetailCardProduct, ITransactionProduct } from "../types/product";
+import { productDetailCardThunk } from "../api/product";
 
 export interface IProductState {
   checkout: ITransactionProduct[];
+  productInfo: IDetailCardProduct[];
+  isLoading: boolean;
 }
 
 const initialState: IProductState = {
   checkout: [],
+  productInfo: [],
+  isLoading: false,
 };
 
 const checkoutSlice = createSlice({
@@ -38,7 +43,22 @@ const checkoutSlice = createSlice({
       state.checkout = newCheckout;
     },
   },
-  extraReducers: () => {},
+  extraReducers: (builder) => {
+    builder
+      .addCase(productDetailCardThunk.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(
+        productDetailCardThunk.fulfilled,
+        (state, action: PayloadAction<IDetailCardProduct[]>) => {
+          state.isLoading = false;
+          state.productInfo = action.payload;
+        }
+      )
+      .addCase(productDetailCardThunk.rejected, (state) => {
+        state.isLoading = false;
+      });
+  },
 });
 
 export const checkoutAction = {

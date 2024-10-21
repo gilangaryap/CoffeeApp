@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import img from "../../assets/images/8d0f31b42b08e11e97f7bc8c06c07705.jpeg";
-import { IDetailProduct } from "../types/product";
-import { IProductDetailResponse } from "../types/response";
+import {  IDetailCardProduct, IDetailProduct } from "../types/product";
+import { IProductDetailCardResponse, IProductDetailResponse } from "../types/response";
 import axios, { AxiosError, AxiosResponse } from "axios";
 
 export const productDummy = [
@@ -164,16 +164,18 @@ export const orderHistoryDummy = [
 ];
 
 export const productDetailThunk = createAsyncThunk<
-  IDetailProduct[], 
+  IDetailProduct[],
   { uuid: string },
   { rejectValue: { error: Error; status?: number } }
 >("productThunk", async (params: { uuid: string }, { rejectWithValue }) => {
   try {
-    const url = `http://localhost:8080/product/detail/${params.uuid}`;
+    const url = `${import.meta.env.VITE_REACT_APP_API_URL}/product/detail/${
+      params.uuid
+    }`;
     const result: AxiosResponse<IProductDetailResponse> = await axios.get(url);
 
     if (Array.isArray(result.data.data)) {
-      return result.data.data; 
+      return result.data.data;
     } else {
       return rejectWithValue({
         error: new Error("Expected an array of products"),
@@ -190,3 +192,30 @@ export const productDetailThunk = createAsyncThunk<
     throw error;
   }
 });
+
+export const productDetailCardThunk = createAsyncThunk<
+  IDetailCardProduct[], 
+  { uuid: string },
+  { rejectValue: { error: Error; status?: number } }
+>(
+  "productDetailCardThunk",
+  async ({ uuid }, { rejectWithValue }) => {
+    try {
+      const url = `${import.meta.env.VITE_REACT_APP_API_URL}/product/detail-card/${uuid}`;
+      const result: AxiosResponse<IProductDetailCardResponse> = await axios.get(url);
+      console.log("data :", result.data.data);
+      return result.data.data; 
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        return rejectWithValue({
+          error: error.response?.data || new Error("Network Error"),
+          status: error.response?.status,
+        });
+      }
+      return rejectWithValue({
+        error: new Error("An unexpected error occurred"),
+        status: 500,
+      });
+    }
+  }
+);

@@ -1,5 +1,5 @@
 import { IHistoryOrderBody } from "./historyOrder";
-import { IDetailProduct, IProductBody } from "./product";
+import { IDetailCardProduct, IDetailProduct, IProductBody } from "./product";
 
 interface IPaginationMeta {
   totalData?: number;
@@ -50,6 +50,10 @@ export interface IHistoryResponse extends IBasicResponse {
 
 export interface IProductDetailResponse extends IBasicResponse {
   data: IDetailProduct;
+}
+
+export interface IProductDetailCardResponse extends IBasicResponse {
+  data: IDetailCardProduct[];
 }
 
 export interface IProductResponse extends IBasicResponse {

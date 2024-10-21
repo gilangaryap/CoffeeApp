@@ -1,7 +1,7 @@
 interface ProductInfoProps {
   product_name: string,
   product_price: number,
-  discount_price: number,
+  discount_price: string,
   product_description: string,
   rating: string;
 }
