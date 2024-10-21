@@ -14,11 +14,7 @@ export const useProductDetail = () => {
     useStoreSelector((state) => state.selectProduct);
   const { productDetail } = useStoreSelector((state) => state.detailProduct);
 
-  const [message, setMessage] = useState<{
-    type: "success" | "error";
-    header: string;
-    body: string;
-  } | null>(null);
+  const [message, setMessage] = useState<{ type: "success" | "error"; header: string; body: string;} | null>(null);
 
   useEffect(() => {
     if (uuid) {
