@@ -1,6 +1,6 @@
 import { MessageCard } from "../../components/card/MessageCard";
 import { OrderList } from "./view/OrderList";
-import { useOrderHistory } from "./view/useOrderHistory";
+import { useOrderHistory } from "./handlers/useOrderHistory";
 
 export const HistoryOrder = () => {
   const {history} = useOrderHistory()

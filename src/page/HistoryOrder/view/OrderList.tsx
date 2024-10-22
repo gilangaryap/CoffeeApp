@@ -1,7 +1,7 @@
 import { OrderFilter } from "./OrderFilter";
 import { OrderItemCard } from "../../../components/card/OrderItemCard";
 import PaginationNumbers from "../../../components/pagination/PaginationNumbers";
-import { useOrderHistory } from "./useOrderHistory";
+import { useOrderHistory } from "../handlers/useOrderHistory";
 import { useEffect } from "react";
 
 export const OrderList = () => {
