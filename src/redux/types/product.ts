@@ -53,6 +53,7 @@ export interface IFilters {
   searchText?: string;
   min_price?: string;
   max_price?: string;
+  favorite?:boolean;
 }
 
 export interface IProductBody {

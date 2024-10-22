@@ -1,10 +1,31 @@
 import { ProductCard } from "../../../components/card/ProductCard";
 import { useNavigate } from "react-router-dom";
-import { productDummy } from "../../../redux/api/product";
+import { useStoreDispatch, useStoreSelector } from "../../../redux/hook";
+import { useEffect } from "react";
+import { filterActions } from "../../../redux/slice/filterProductSlice";
 
 export const Favorite = () => {
   const navigate = useNavigate();
-  const favoriteProducts = productDummy;
+  const dispatch = useStoreDispatch();
+  const { product, filter } = useStoreSelector((state) => state.filterProduct);
+
+  useEffect(() => {
+    dispatch(
+      filterActions.productThunk({
+        filters: filter || {
+          category: "",
+          sortBy: "",
+          max_price: "",
+          min_price: "",
+          searchText: "",
+          favorite: true,
+        },
+        currentPage: 1,
+        productsPage: 4,
+      })
+    );
+  }, [dispatch, filter]);
+
   const handleBuyClick = (uuid: string) => {
     navigate(`/detail-product/${uuid}`);
   };
@@ -23,8 +44,10 @@ export const Favorite = () => {
           yours too!
         </p>
       </div>
-      <div style={{ overflowY: "hidden", scrollbarWidth: "none" }} className="slide-content grid justify-items-center items-center grid-cols-[1fr,1fr,1fr,1fr] gap-9 h-fit bg-white overflow-x-scroll snap-mandatory snap-x lg:overflow-x-auto lg:snap-none lg:grid-cols-4">
-        {favoriteProducts.slice(0, 4).map((product) => (
+      <div
+        style={{ overflowY: "hidden", scrollbarWidth: "none" }}
+        className="slide-content grid justify-items-center items-center grid-cols-[1fr,1fr,1fr,1fr] gap-9 h-fit bg-white overflow-x-scroll snap-mandatory snap-x lg:overflow-x-auto lg:snap-none lg:grid-cols-4">
+        {product.slice(0, 4).map((product) => (
           <ProductCard
             product={product}
             key={product.uuid}

@@ -20,6 +20,7 @@ const initialState: IProductState = {
     max_price: "",
     min_price: "",
     searchText: "",
+    favorite:false,
   },
   uuid: "",
   product: [],
