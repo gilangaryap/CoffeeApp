@@ -1,5 +1,6 @@
 import { IHistoryOrderBody } from "./historyOrder";
 import { IDetailCardProduct, IDetailProduct, IProductBody } from "./product";
+import { ITestimonialBody } from "./testimonial";
 import { ITransactionBody } from "./transactions";
 
 interface IPaginationMeta {
@@ -67,5 +68,9 @@ export interface IProductResponse extends IBasicResponse {
 
 export interface ITransactionResponse extends IBasicResponse {
   data: ITransactionBody[];
+}
+
+export interface ITestimonialResponse extends IBasicResponse{
+  data: ITestimonialBody[],
 }
 
