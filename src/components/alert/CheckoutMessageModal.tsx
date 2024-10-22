@@ -1,3 +1,6 @@
+import { useState } from "react";
+import { useStoreDispatch } from "../../redux/hook";
+import { checkoutAction } from "../../redux/slice/checkoutSlice";
 import { PrimaryButton } from "../button/PrimaryButton";
 
 interface CheckoutModalProps {
@@ -13,7 +16,19 @@ export const CheckoutMessageModal = ({
   isOpen,
   onConfirm
 }: CheckoutModalProps) => {
+  const dispatch = useStoreDispatch();
+  const [isLoading, setIsLoading] = useState(false);
+
   if (!isOpen) return null;
+
+  const handleConfirm = async () => {
+    setIsLoading(true); // Set loading to true
+    await dispatch(checkoutAction.removeAll());
+    setTimeout(() => {
+      setIsLoading(false); 
+      onConfirm();
+    }, 2000);
+  };
 
   return (
     <div
@@ -25,11 +40,21 @@ export const CheckoutMessageModal = ({
         <p className="text-xs xsm:text-sm tbt:text-base uw:text-2xl mb-6">
           {textBody}
         </p>
-        <PrimaryButton
+        {isLoading ? (
+           <PrimaryButton
+           style="w-full text-sm"
+           onClick={handleConfirm}
+           text="Checkout..."
+           disabled={isLoading} 
+         />
+        ) : (
+          <PrimaryButton
             style="w-full text-sm"
-            onClick={onConfirm}
+            onClick={handleConfirm}
             text="Checkout"
+            disabled={isLoading} 
           />
+        )}
       </div>
     </div>
   );

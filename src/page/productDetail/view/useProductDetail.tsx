@@ -10,8 +10,7 @@ export const useProductDetail = () => {
   const navigate = useNavigate();
   const { uuid } = useParams<{ uuid: string }>();
   const dispatch = useStoreDispatch();
-  const { currentImage, count, selectedSize, selectedOption } =
-    useStoreSelector((state) => state.selectProduct);
+  const { currentImage, count, selectedSize, selectedOption } = useStoreSelector((state) => state.selectProduct);
   const { productDetail } = useStoreSelector((state) => state.detailProduct);
 
   const [message, setMessage] = useState<{ type: "success" | "error"; header: string; body: string;} | null>(null);

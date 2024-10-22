@@ -1,28 +1,43 @@
 import { useNavigate } from "react-router-dom";
 import { CheckoutHeader } from "./CheckoutHeader";
-import CheckoutProductCard from "../../../components/card/CheckoutProductCard";
 import { useStoreDispatch, useStoreSelector } from "../../../redux/hook";
 import { CheckoutTotal } from "./CheckoutTotal";
-import { useEffect } from "react";
+
+import CheckoutProductCard from "../../../components/card/CheckoutProductCard";
+import { useCallback, useEffect } from "react";
 import { productDetailCardThunk } from "../../../redux/api/product";
 
 export const OrderSummary = () => {
   const dispatch = useStoreDispatch();
-  const { checkout, productInfo } = useStoreSelector((state) => state.checkout);
+  const { checkout , productInfo } = useStoreSelector((state) => state.checkout);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    if (checkout[0]?.uuid) {
-      dispatch(productDetailCardThunk({ uuid: checkout[0].uuid }));
-      console.log('uuid: ',checkout[0].uuid)
+    if (checkout.length > 0) {
+      checkout.forEach(item => {
+        if (item?.uuid) {
+          dispatch(productDetailCardThunk({ uuid: item.uuid }));
+          console.log('checkout: ', checkout.map);
+        }
+      });
     }
   }, [checkout, dispatch]);
 
-  const navigate = useNavigate();
-  const handleClick = () => {
+  const handleClick = useCallback(() => {
     navigate("/product");
-  };
+  }, [navigate]);
 
-  const hasProductInfo = productInfo.length > 0;
+  console.log("Checkout array:", checkout);
+
+  const orderTotal = checkout.reduce((sum, product) => {
+    const price: string | number = productInfo[0]?.discount_price || productInfo[0]?.product_price || 0;
+    const numericPrice = typeof price === 'string' ? parseFloat(price) : price;
+    return sum + (numericPrice * (product.count || 0));
+  }, 0);  
+  const deliveryFee = 0;
+  const subTotal = orderTotal + deliveryFee;
+  const tax = subTotal * 0.05;
+  const total = tax + subTotal
 
   return (
     <div className="grid gap-10">
@@ -34,25 +49,22 @@ export const OrderSummary = () => {
       <div className="grid grid-cols-1 grid-rows-[auto,1fr] lg:grid-cols-[1fr,auto] lg:grid-rows-1 gap-5">
         <div className="flex flex-col gap-4">
           <CheckoutHeader onAddMenuClick={handleClick} />
-          {checkout.map((products, index) => (
+          {checkout.map((products , index) => (
             <CheckoutProductCard
-              key={index}
+              key={products.uuid}
               product={products}
-              productIndex={index}
-              deliveryOption={products.payment_id || ''}
-              productImage={hasProductInfo ? productInfo[0].img_product : ''}
-              productName={hasProductInfo ? productInfo[0].product_name : ''}
-              productPrice={hasProductInfo ? productInfo[0].product_price : 0}
-              discountPrice={hasProductInfo ? productInfo[0].discount_price : ''}
+              deliveryOption={products.delivery_id || ''}
+              productIndex={index} 
             />
           ))}
         </div>
         <div>
-          <CheckoutTotal
-            order="40.000"
-            delivery="10.000"
-            sub_Total="80.000"
-            tax="5.000"
+           <CheckoutTotal
+            order={`IDR ${orderTotal.toLocaleString()}`} // Format to locale string
+            delivery={`IDR ${deliveryFee.toLocaleString()}`}
+            sub_Total={`IDR ${subTotal.toLocaleString()}`}
+            tax={`IDR ${tax.toLocaleString()}`}
+            total={`IDR ${total.toLocaleString()}`}
           />
         </div>
       </div>

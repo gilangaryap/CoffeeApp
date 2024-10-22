@@ -206,7 +206,6 @@ export const productDetailCardThunk = createAsyncThunk<
     const result: AxiosResponse<IProductDetailCardResponse> = await axios.get(
       url
     );
-    console.log("data :", result.data.data);
     return result.data.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {

@@ -10,9 +10,10 @@ interface TotalProps {
   delivery: string;
   tax: string;
   sub_Total: string;
+  total:string;
 }
 
-export const CheckoutTotal = ({ order, delivery, tax, sub_Total }: TotalProps) => {
+export const CheckoutTotal = ({ order, delivery, tax, sub_Total ,total }: TotalProps) => {
   const {
     isModalOpen,
     isLoading,
@@ -53,6 +54,13 @@ export const CheckoutTotal = ({ order, delivery, tax, sub_Total }: TotalProps) =
           <div className="flex-row flex justify-between">
             <div className="font-bold text-xl mb-2 text-text">Sub Total</div>
             <div className="font-bold text-xl mb-2 text-black">Rp {sub_Total}</div>
+          </div>
+
+          <div className="w-full h-[1px] bg-text"></div>
+
+          <div className="flex-row flex justify-between">
+            <div className="font-bold text-xl mb-2 text-text">Total</div>
+            <div className="font-bold text-xl mb-2 text-black">Rp {total}</div>
           </div>
 
           <PrimaryButton onClick={handleOpenModal} text="Checkout" style="w-full font-bold" />

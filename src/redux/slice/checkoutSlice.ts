@@ -42,6 +42,9 @@ const checkoutSlice = createSlice({
       );
       state.checkout = newCheckout;
     },
+    removeAll: (state) => {
+      state.checkout = []; 
+    },
   },
   extraReducers: (builder) => {
     builder
