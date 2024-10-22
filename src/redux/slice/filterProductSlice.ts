@@ -1,8 +1,8 @@
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IFilters, IProductBody } from "../types/product";
 import { IPagination } from "../types/pagination";
-import axios, { AxiosResponse } from "axios";
-import { IProductResponse } from "../types/response";
+import { productThunk } from "../api/product";
+
 
 export interface IProductState {
   filter?: IFilters;
@@ -32,40 +32,6 @@ const initialState: IProductState = {
   },
   isLoading: false,
 };
-
-export const productThunk = createAsyncThunk<
-  {products: IProductBody[];pagination: IPagination;}, 
-  { filters: IFilters; currentPage: number; productsPage: number },
-  { rejectValue: { error: Error; status?: number } }
->(
-  "product/fetch",
-  async ({ filters, currentPage, productsPage }, { rejectWithValue }) => {
-    try {
-      const url = `${import.meta.env.VITE_REACT_APP_API_URL}/product`;
-      const result: AxiosResponse<IProductResponse> = await axios.get(url, {
-        params: { ...filters, page: currentPage, limit: productsPage },
-      });
-      return {
-        products: result.data.data,
-        pagination: {
-          totalData: result.data.meta?.totalData || 0,
-          totalPages: result.data.meta?.totalPage || 1,
-          prevLink: result.data.meta?.prevLink || null,
-          nextLink: result.data.meta?.nextLink || null,
-          currentPage,
-        },
-      };
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        return rejectWithValue({
-          error: error.response?.data,
-          status: error.response?.status,
-        });
-      }
-      throw error;
-    }
-  }
-);
 
 const filterSlice = createSlice({
   name: "filterSlice",

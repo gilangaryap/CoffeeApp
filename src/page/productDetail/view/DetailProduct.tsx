@@ -6,7 +6,7 @@ import { QuantityInput } from "../../../components/Input/QuantityInput";
 import { SizeInput } from "../../../components/Input/SizeInput";
 import { ImageDisplay } from "./ImageDisplay";
 import { ProductInfo } from "./ProductInfo";
-import { useProductDetail } from "./ProductHandlers";
+import { useProductDetail } from "./useProductDetail";
 
 export const DetailProduct = () => {
   const {

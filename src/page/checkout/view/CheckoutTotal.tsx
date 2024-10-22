@@ -1,8 +1,9 @@
-import { useState } from "react";
 import { CheckoutModal } from "../../../components/alert/CheckoutModal";
 import { PrimaryButton } from "../../../components/button/PrimaryButton";
 import { TestimonialInputCard } from "../../../components/card/TestimonialInputCard";
 import { CheckoutMessageModal } from "../../../components/alert/CheckoutMessageModal";
+import { useCheckout } from "../handlers/useCheckout";
+import { useModalContent } from "../handlers/useModalContent";
 
 interface TotalProps {
   order: string;
@@ -11,48 +12,22 @@ interface TotalProps {
   sub_Total: string;
 }
 
-export const Total = ({ order, delivery, tax, sub_Total }: TotalProps) => {
-  const [isModalOpen, setModalOpen] = useState<boolean>(false);
-  const [isLoading, setLoading] = useState<boolean>(false);
-  const [isSuccess, setSuccess] = useState<boolean>(false);
-  const [isMessageModalOpen, setMessageModalOpen] = useState<boolean>(false);
-  const [isReviewModalOpen, setReviewModalOpen] = useState<boolean>(false);
+export const CheckoutTotal = ({ order, delivery, tax, sub_Total }: TotalProps) => {
+  const {
+    isModalOpen,
+    isLoading,
+    isSuccess,
+    isMessageModalOpen,
+    isReviewModalOpen,
+    handleOpenModal,
+    handleCloseModal,
+    handleConfirmCheckout,
+    handleCloseMessageModal,
+    handleReviewSubmit,
+  } = useCheckout();
 
-  const handleOpenModal = () => setModalOpen(true);
-  const handleCloseModal = () => setModalOpen(false);
+  const { modalHeader, modalBody } = useModalContent(isLoading, isSuccess);
 
-  const handleConfirmCheckout = async () => {
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      setSuccess(true);
-      setModalOpen(false);
-      setMessageModalOpen(true); 
-    }, 200);
-  };
-
-  const handleCloseMessageModal = () => {
-    setMessageModalOpen(false);
-    setReviewModalOpen(true); 
-  };
-
-  const modalHeader = isLoading
-    ? "Processing your order..."
-    : isSuccess
-    ? "Order Successful!"
-    : "";
-
-  const modalBody = isLoading
-    ? "Please wait while we process your payment."
-    : isSuccess
-    ? "Thank you for your order! You will receive a confirmation email shortly."
-    : "";
-
-  const handleReviewSubmit = (review: string, rating: number) => {
-    console.log("Review submitted:", review, "Rating:", rating);
-    setMessageModalOpen(false);
-    setReviewModalOpen(false);
-  };
 
   return (
     <div className="grid gap-11">
@@ -80,11 +55,7 @@ export const Total = ({ order, delivery, tax, sub_Total }: TotalProps) => {
             <div className="font-bold text-xl mb-2 text-black">Rp {sub_Total}</div>
           </div>
 
-          <PrimaryButton
-            onClick={handleOpenModal}
-            text="Checkout"
-            style="w-full font-bold"
-          />
+          <PrimaryButton onClick={handleOpenModal} text="Checkout" style="w-full font-bold" />
 
           <p className="text-xl text-gray-400">
             *Click Checkout to continue payment
@@ -92,7 +63,7 @@ export const Total = ({ order, delivery, tax, sub_Total }: TotalProps) => {
 
           <CheckoutModal
             textBody="Are you sure you want to proceed with the checkout?"
-            textHeader={`Checkout Confirmation : ${isLoading}`}
+            textHeader={`Checkout Confirmation `}
             isOpen={isModalOpen}
             onClose={handleCloseModal}
             onConfirm={handleConfirmCheckout}
@@ -101,7 +72,7 @@ export const Total = ({ order, delivery, tax, sub_Total }: TotalProps) => {
             isOpen={isMessageModalOpen}
             textBody={modalBody}
             textHeader={modalHeader}
-            onConfirm={handleCloseMessageModal} 
+            onConfirm={handleCloseMessageModal}
           />
           {isSuccess && isReviewModalOpen && (
             <TestimonialInputCard onSubmit={handleReviewSubmit} />

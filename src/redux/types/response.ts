@@ -1,5 +1,6 @@
 import { IHistoryOrderBody } from "./historyOrder";
 import { IDetailCardProduct, IDetailProduct, IProductBody } from "./product";
+import { ITransactionBody } from "./transactions";
 
 interface IPaginationMeta {
   totalData?: number;
@@ -63,3 +64,8 @@ export interface IProductResponse extends IBasicResponse {
   currentPage: number;
   totalPages: number;
 }
+
+export interface ITransactionResponse extends IBasicResponse {
+  data: ITransactionBody[];
+}
+

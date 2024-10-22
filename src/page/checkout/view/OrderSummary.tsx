@@ -2,11 +2,11 @@ import { useNavigate } from "react-router-dom";
 import { CheckoutHeader } from "./CheckoutHeader";
 import CheckoutProductCard from "../../../components/card/CheckoutProductCard";
 import { useStoreDispatch, useStoreSelector } from "../../../redux/hook";
-import { Total } from "./Total";
+import { CheckoutTotal } from "./CheckoutTotal";
 import { useEffect } from "react";
 import { productDetailCardThunk } from "../../../redux/api/product";
 
-export const Order = () => {
+export const OrderSummary = () => {
   const dispatch = useStoreDispatch();
   const { checkout, productInfo } = useStoreSelector((state) => state.checkout);
 
@@ -48,7 +48,7 @@ export const Order = () => {
           ))}
         </div>
         <div>
-          <Total
+          <CheckoutTotal
             order="40.000"
             delivery="10.000"
             sub_Total="80.000"

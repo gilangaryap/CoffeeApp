@@ -7,6 +7,7 @@ import { selectProductReducer } from "./slice/selectProduct";
 import { checkoutReducer, checkoutState } from "./slice/checkoutSlice";
 import { productDetailReducer } from "./slice/productDetailSlice";
 import { historyOrderReducer } from "./slice/historyOrderSlice";
+import { transactionReducer } from "./slice/transactionSlice";
 
 const productPersistConfig: PersistConfig<productState> = {
   key: "product:coffee",
@@ -28,6 +29,7 @@ export const store = configureStore({
       checkout: persistedCheckoutReducer,
       detailProduct: productDetailReducer,
       historyOrder: historyOrderReducer,
+      transaction: transactionReducer,
     },
   middleware:(getDefaultMiddleware) => getDefaultMiddleware({
     serializeableCheck: false,

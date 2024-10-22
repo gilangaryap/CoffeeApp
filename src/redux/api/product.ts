@@ -1,8 +1,9 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import img from "../../assets/images/8d0f31b42b08e11e97f7bc8c06c07705.jpeg";
-import {  IDetailCardProduct, IDetailProduct } from "../types/product";
-import { IProductDetailCardResponse, IProductDetailResponse } from "../types/response";
+import { IDetailCardProduct, IDetailProduct, IFilters, IProductBody,} from "../types/product";
+import { IProductDetailCardResponse, IProductDetailResponse, IProductResponse,} from "../types/response";
 import axios, { AxiosError, AxiosResponse } from "axios";
+import { IPagination } from "../types/pagination";
 
 export const productDummy = [
   {
@@ -194,28 +195,63 @@ export const productDetailThunk = createAsyncThunk<
 });
 
 export const productDetailCardThunk = createAsyncThunk<
-  IDetailCardProduct[], 
+  IDetailCardProduct[],
   { uuid: string },
   { rejectValue: { error: Error; status?: number } }
+>("productDetailCardThunk", async ({ uuid }, { rejectWithValue }) => {
+  try {
+    const url = `${
+      import.meta.env.VITE_REACT_APP_API_URL
+    }/product/detail-card/${uuid}`;
+    const result: AxiosResponse<IProductDetailCardResponse> = await axios.get(
+      url
+    );
+    console.log("data :", result.data.data);
+    return result.data.data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      return rejectWithValue({
+        error: error.response?.data || new Error("Network Error"),
+        status: error.response?.status,
+      });
+    }
+    return rejectWithValue({
+      error: new Error("An unexpected error occurred"),
+      status: 500,
+    });
+  }
+});
+
+export const productThunk = createAsyncThunk<
+  { products: IProductBody[]; pagination: IPagination },
+  { filters: IFilters; currentPage: number; productsPage: number },
+  { rejectValue: { error: Error; status?: number } }
 >(
-  "productDetailCardThunk",
-  async ({ uuid }, { rejectWithValue }) => {
+  "product/fetch",
+  async ({ filters, currentPage, productsPage }, { rejectWithValue }) => {
     try {
-      const url = `${import.meta.env.VITE_REACT_APP_API_URL}/product/detail-card/${uuid}`;
-      const result: AxiosResponse<IProductDetailCardResponse> = await axios.get(url);
-      console.log("data :", result.data.data);
-      return result.data.data; 
+      const url = `${import.meta.env.VITE_REACT_APP_API_URL}/product`;
+      const result: AxiosResponse<IProductResponse> = await axios.get(url, {
+        params: { ...filters, page: currentPage, limit: productsPage },
+      });
+      return {
+        products: result.data.data,
+        pagination: {
+          totalData: result.data.meta?.totalData || 0,
+          totalPages: result.data.meta?.totalPage || 1,
+          prevLink: result.data.meta?.prevLink || null,
+          nextLink: result.data.meta?.nextLink || null,
+          currentPage,
+        },
+      };
     } catch (error) {
       if (axios.isAxiosError(error)) {
         return rejectWithValue({
-          error: error.response?.data || new Error("Network Error"),
+          error: error.response?.data,
           status: error.response?.status,
         });
       }
-      return rejectWithValue({
-        error: new Error("An unexpected error occurred"),
-        status: 500,
-      });
+      throw error;
     }
   }
 );
